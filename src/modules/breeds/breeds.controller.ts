@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
 import { DogBreed } from 'src/database/entities/DogBreed.entity';
 import { BreedsService } from './breeds.service';
 import { CreateBreedDto } from './dtos/create-breed.dto';
@@ -14,8 +14,19 @@ export class BreedsController {
         return this.breedsService.findAll();
     }
 
+    @Get(':id')
+    findById(@Param('id') id: string): Promise<DogBreed> {
+        return this.breedsService.findById(id);
+    }
+
     @Post()
     create(@Body() dto: CreateBreedDto) {
         this.breedsService.create(dto);
     }
+
+    @Delete(':id') 
+    delete(@Param('id') id: string) {
+        this.breedsService.delete(id);
+    }
+
 }

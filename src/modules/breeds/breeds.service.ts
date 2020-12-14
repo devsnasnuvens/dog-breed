@@ -15,7 +15,15 @@ export class BreedsService {
         return this.breedRepository.find();
     }
 
+    findById(id: string): Promise<DogBreed> {
+        return this.breedRepository.findOne(id);
+    }
+
     create(dto: CreateBreedDto) {
         this.breedRepository.insert({ Name: dto.name, PictureUrl: dto.pictureUrl });
+    }
+
+    delete(id: string) {
+        this.breedRepository.delete(id);
     }
 }
