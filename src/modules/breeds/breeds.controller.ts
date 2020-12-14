@@ -1,7 +1,8 @@
-import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
 import { DogBreed } from 'src/database/entities/DogBreed.entity';
 import { BreedsService } from './breeds.service';
 import { CreateBreedDto } from './dtos/create-breed.dto';
+import { UpdateBreedDto } from './dtos/update-breed.dto';
 
 @Controller('breeds')
 export class BreedsController {
@@ -22,6 +23,11 @@ export class BreedsController {
     @Post()
     create(@Body() dto: CreateBreedDto) {
         this.breedsService.create(dto);
+    }
+
+    @Put(':id')
+    update(@Param('id') id: string, @Body() dto: UpdateBreedDto) {
+        this.breedsService.update(id, dto);
     }
 
     @Delete(':id') 
